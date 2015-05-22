@@ -1,5 +1,6 @@
 //
 loopback = require('loopback');
+var Promise = require('bluebird');
 
 module.exports = function(Thing) {
 
