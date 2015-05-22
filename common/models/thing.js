@@ -3,12 +3,25 @@ loopback = require('loopback');
 
 module.exports = function(Thing) {
 
+// HOW TO USE FOR TESTING
+//
+// at http://127.0.0.1:3000/explorer/#!/things/create
+// create a thing {"color":"red"}
+//
+// then at http://127.0.0.1:3000/explorer/#!/things/prototype_paint
+// enter id 1 and try it out
+//
+// watch the server console log
+
 function beforeRemotePaint(remoteHookContext, unused, next) {
   var loopbackContext = loopback.getCurrentContext();
   loopbackContext.thingInstance = remoteHookContext.instance;
   console.log("the color before is", loopbackContext.thingInstance.color);
   //
   Promise.resolve()
+  .then(function() {
+    return true;
+  })
   .then(function() {
     console.log("about to call next() from before remote method");
     next();
