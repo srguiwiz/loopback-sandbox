@@ -8,10 +8,15 @@ function beforeRemotePaint(remoteHookContext, unused, next) {
   loopbackContext.thingInstance = remoteHookContext.instance;
   console.log("the color before is", loopbackContext.thingInstance.color);
   //
-  console.log("about to call next() from before remote method");
-  next();
-  console.log("interestingly on statement after next() in before remote method");
-  return true;
+  Promise.resolve()
+  .then(function() {
+    console.log("about to call next() from before remote method");
+    next();
+    console.log("interestingly on statement after next() in before remote method");
+    return true;
+  });
+  //
+  return undefined;
 }
 
 Thing.beforeRemote('**', function beforeRemoteWildcard(remoteHookContext, modelInstanceMaybe, next) {
